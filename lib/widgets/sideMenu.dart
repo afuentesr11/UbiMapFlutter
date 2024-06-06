@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterproyect/styles/Colors.dart';
 
 Widget menulateral(BuildContext context){
   return Drawer(
@@ -8,7 +9,7 @@ Widget menulateral(BuildContext context){
       children: <Widget>[
         const DrawerHeader(
           decoration: BoxDecoration(
-            color: Colors.deepPurple,
+            color: AppColors.lightOrange,
           ),
           child: Text(
             'Menu',

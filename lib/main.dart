@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterproyect/screens/first.dart';
 import 'package:flutterproyect/screens/second.dart';
 import 'package:flutterproyect/screens/third.dart';
+import 'package:flutterproyect/styles/Colors.dart';
 import 'package:flutterproyect/widgets/sideMenu.dart';
 
 void main() {
@@ -14,12 +15,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'UbiMAP',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.lightOrange),
         useMaterial3: true,
+        scaffoldBackgroundColor: AppColors.grey
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'UbiMAP'),
     );
   }
 }
@@ -36,6 +38,7 @@ class MyHomePage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(title),
+          backgroundColor: AppColors.lightOrange,
         ),
         drawer: menulateral(context),
         body: const TabBarView(
@@ -48,8 +51,8 @@ class MyHomePage extends StatelessWidget {
         bottomNavigationBar: const TabBar(
           tabs: [
             Tab(icon: Icon(Icons.home), text: 'Home'),
-            Tab(icon: Icon(Icons.star), text: 'Second'),
-            Tab(icon: Icon(Icons.person), text: 'Third'),
+            Tab(icon: Icon(Icons.star), text: 'Map'),
+            Tab(icon: Icon(Icons.person), text: 'Coordinates'),
           ],
         ),
       ),
