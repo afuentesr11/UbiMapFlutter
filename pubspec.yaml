@@ -37,8 +37,11 @@ dependencies:
   cupertino_icons: ^1.0.6
   flutter_osm_plugin: ^1.0.5
   shared_preferences: ^2.2.3
-  flutter_map: ^7.0.0
-  latlong2: ^0.9.1
+  flutter_map: ^4.0.0
+  latlong2: ^0.8.1
+  csv: ^5.0.0
+  logger: ^1.0.0
+  path_provider: ^2.0.9
 
 dev_dependencies:
   flutter_test:

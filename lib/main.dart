@@ -3,9 +3,11 @@ import 'package:flutterproyect/screens/first.dart';
 import 'package:flutterproyect/screens/second.dart';
 import 'package:flutterproyect/screens/third.dart';
 import 'package:flutterproyect/styles/Colors.dart';
-import 'package:flutterproyect/widgets/sideMenu.dart';
+import 'globals.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await loadPins();
   runApp(const MyApp());
 }
 
@@ -40,7 +42,6 @@ class MyHomePage extends StatelessWidget {
           title: Text(title),
           backgroundColor: AppColors.lightOrange,
         ),
-        drawer: menulateral(context),
         body: const TabBarView(
           children: [
             FirstPage(),
