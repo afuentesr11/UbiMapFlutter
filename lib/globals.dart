@@ -1,20 +1,29 @@
+import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-List<Map<String, double>> pins = [];
-
-Future<void> savePins() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  String encodedPins = pins.map((pin) => '${pin['lat']},${pin['lng']}').join(';');
-  await prefs.setString('pins', encodedPins);
-}
+List<Map<String, dynamic>> pins = [];
 
 Future<void> loadPins() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  String? pinsString = prefs.getString('pins');
+  final prefs = await SharedPreferences.getInstance();
+  final String? pinsString = prefs.getString('pins');
+
   if (pinsString != null) {
-    pins = pinsString.split(';').map((s) {
-      List<String> coords = s.split(',');
-      return {'lat': double.parse(coords[0]), 'lng': double.parse(coords[1])};
-    }).toList();
+    try {
+      List<dynamic> pinsJson = jsonDecode(pinsString);
+      pins = pinsJson.map((pin) => {
+        'name': pin['name'],
+        'lat': pin['lat'],
+        'lng': pin['lng'],
+      }).toList();
+    } catch (e) {
+      print('Error decoding pins: $e');
+    }
   }
+}
+
+
+Future<void> savePins() async {
+  final prefs = await SharedPreferences.getInstance();
+  final String pinsString = jsonEncode(pins);
+  await prefs.setString('pins', pinsString);
 }
