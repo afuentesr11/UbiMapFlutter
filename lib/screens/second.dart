@@ -2,10 +2,11 @@ import 'dart:io';
 import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutterproyect/Clases/Pin.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutterproyect/globals.dart';
+import 'package:flutterproyect/Clases/dataBase.dart';
 
 class SecondPage extends StatefulWidget {
   const SecondPage({super.key});
@@ -62,6 +63,7 @@ class _SecondPageState extends State<SecondPage> {
                 try {
                   await savePins();
                   await saveCoordinatesToCSV(pins);
+                  await savePinToDB(nameController.text, latlng.latitude, latlng.longitude);
                 } catch (e) {
                   print('Error guardando el pin: $e');
                 }
@@ -82,6 +84,11 @@ class _SecondPageState extends State<SecondPage> {
     final directory = await getApplicationDocumentsDirectory();
     final file = File('${directory.path}/coordinates.csv');
     await file.writeAsString(csvString);
+  }
+
+  Future<void> savePinToDB(String name, double lat, double lng) async {
+    Pin pin = new Pin(name: name, latitude: lat, longitude: lng);
+    await DBHelper.insertPin(pin);
   }
 
   @override
