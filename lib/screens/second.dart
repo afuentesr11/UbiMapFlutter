@@ -21,9 +21,33 @@ class _SecondPageState extends State<SecondPage> {
     super.initState();
     loadPins().then((_) {
       setState(() {
-        print('Pins loaded: $pins');
+        print('Pins loaded:');
+        for (var pin in pins) {
+          print('ID: ${pin.id}, Name: ${pin.name}, Latitude: ${pin.latitude}, Longitude: ${pin.longitude}');
+        }
+        _updateMarkers();
       });
     });
+  }
+
+  void _updateMarkers() {
+    markerMap.clear();
+    for (var pin in pins) {
+      markerMap[pin.id] = Marker(
+        width: 80.0,
+        height: 80.0,
+        point: LatLng(pin.latitude, pin.longitude),
+        builder: (ctx) => Column(
+          children: [
+            Text(
+              pin.name,
+              style: const TextStyle(color: Colors.black),
+            ),
+            const Icon(Icons.location_on, color: Colors.red),
+          ],
+        ),
+      );
+    }
   }
 
   void _showPinDialog(LatLng latlng) {
@@ -54,11 +78,9 @@ class _SecondPageState extends State<SecondPage> {
             TextButton(
               onPressed: () async {
                 setState(() {
-                  pins.add({
-                    'name': nameController.text,
-                    'lat': latlng.latitude,
-                    'lng': latlng.longitude,
-                  });
+                  pins.add(
+                  Pin(name: nameController.text, latitude: latlng.latitude, longitude: latlng.longitude)
+                  );
                 });
                 try {
                   await savePins();
@@ -77,8 +99,8 @@ class _SecondPageState extends State<SecondPage> {
     );
   }
 
-  Future<void> saveCoordinatesToCSV(List<Map<String, dynamic>> coordinates) async {
-    List<List<dynamic>> csvData = coordinates.map((coord) => [coord['name'], coord['lat'], coord['lng']]).toList();
+  Future<void> saveCoordinatesToCSV(List<Pin> coordinates) async {
+    List<List<dynamic>> csvData = coordinates.map((coord) => [coord.name, coord.latitude, coord.longitude]).toList();
     String csvString = const ListToCsvConverter().convert(csvData);
 
     final directory = await getApplicationDocumentsDirectory();
@@ -111,22 +133,7 @@ class _SecondPageState extends State<SecondPage> {
             subdomains: ['a', 'b', 'c'],
           ),
           MarkerLayer(
-            markers: pins.map((pin) {
-              return Marker(
-                width: 80.0,
-                height: 80.0,
-                point: LatLng(pin['lat']!, pin['lng']!),
-                builder: (ctx) => Column(
-                  children: [
-                    Text(
-                      pin['name']!,
-                      style: const TextStyle(color: Colors.black),
-                    ),
-                    const Icon(Icons.location_on, color: Colors.red),
-                  ],
-                ),
-              );
-            }).toList(),
+            markers: markerMap.values.toList(), // Usar los marcadores del mapa
           ),
         ],
       ),
