@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterproyect/Clases/dataBase.dart';
 import 'package:flutterproyect/screens/first.dart';
 import 'package:flutterproyect/screens/second.dart';
 import 'package:flutterproyect/screens/third.dart';
@@ -7,8 +8,20 @@ import 'globals.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await clearAllPins();
   await loadPins();
   runApp(const MyApp());
+}
+
+Future<void> clearAllPins() async {
+  try{
+    await DBHelper.deleteAllPins();
+    await clearPinsFromSharedPreferences();
+    await clearPinsFromCSV();
+    print("Todos los pines han sido borrados exitosamente.");
+  }catch (e){
+    print("Error borrando los pines: $e");
+  }
 }
 
 class MyApp extends StatelessWidget {

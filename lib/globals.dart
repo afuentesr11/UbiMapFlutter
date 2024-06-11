@@ -32,9 +32,9 @@ Future<void> loadPins() async {
   }
 }
 
-Future<void> savePins() async {
+Future<void> savePinToSharedPreferences() async {
   final prefs = await SharedPreferences.getInstance();
-  final String pinsString = jsonEncode(pins);
+  final String pinsString = jsonEncode(pins.map((pin) => pin.toMap()).toList());
   await prefs.setString('pins', pinsString);
 }
 
@@ -104,3 +104,18 @@ Future<void> deletePinFromCSV(String pinName) async {
     await file.writeAsString(updatedCsvString);
   }
 }
+
+Future<void> clearPinsFromSharedPreferences() async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.remove('pins');
+}
+
+Future<void> clearPinsFromCSV() async {
+  final directory = await getApplicationDocumentsDirectory();
+  final file = File('${directory.path}/coordinates.csv');
+
+  if (await file.exists()) {
+    await file.writeAsString('');  // Escribir una cadena vacía en el archivo
+  }
+}
+
