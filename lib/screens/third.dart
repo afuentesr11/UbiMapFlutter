@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutterproyect/Clases/Pin.dart';
-import 'package:flutterproyect/Clases/dataBase.dart';
+import 'package:ubimap/Clases/Pin.dart';
+import 'package:ubimap/Clases/dataBase.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:csv/csv.dart';

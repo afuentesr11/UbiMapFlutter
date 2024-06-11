@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterproyect/styles/Colors.dart';
+import 'package:ubimap/styles/Colors.dart';
 
 Widget menulateral(BuildContext context){
   return Drawer(

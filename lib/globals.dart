@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:csv/csv.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:flutterproyect/Clases/Pin.dart';
+import 'package:ubimap/Clases/Pin.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

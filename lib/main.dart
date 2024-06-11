@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutterproyect/Clases/dataBase.dart';
-import 'package:flutterproyect/screens/first.dart';
-import 'package:flutterproyect/screens/second.dart';
-import 'package:flutterproyect/screens/third.dart';
-import 'package:flutterproyect/styles/Colors.dart';
+import 'package:ubimap/Clases/dataBase.dart';
+import 'package:ubimap/screens/first.dart';
+import 'package:ubimap/screens/second.dart';
+import 'package:ubimap/screens/third.dart';
+import 'package:ubimap/styles/Colors.dart';
 import 'globals.dart';
 
 void main() async {
